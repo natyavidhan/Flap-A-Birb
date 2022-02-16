@@ -35,7 +35,7 @@ while run:
     #rendering pillars
     if len(pillars) < 4:
         if len(pillars) > 0:
-            if 450 > pillars[-1].x + pillars[-1].pillar.get_width():
+            if 450 > pillars[-1].x + pillars[-1].pillarUp.get_width():
                 createPillar()
         else:
             createPillar()
@@ -45,6 +45,8 @@ while run:
             pillars.remove(pillar)
         pillar.x -= 2
         pillar.draw(app)
+        if pillar.colliding(birb):
+            run = False
     
     
     pygame.display.update()
