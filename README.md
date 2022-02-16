@@ -1,2 +1,2 @@
-# CometDodge
-Dodge comets, that's it, made with python and pygame
+# Flap-A-Birb
+flappy bird rip-off with python and pygame
