@@ -45,8 +45,10 @@ while run:
         
     for pillar in pillars:
         if pillar.x < -50:
-            score += 1
             pillars.remove(pillar)
+        if pillar.x < 75 and not pillar.scored:
+            score += 1
+            pillar.scored = True
         pillar.x -= 2
         pillar.draw(app)
         if pillar.colliding(birb):
