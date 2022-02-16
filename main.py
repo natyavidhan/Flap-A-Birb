@@ -24,7 +24,7 @@ while run:
     keys = pygame.key.get_pressed()
     if keys[pygame.K_UP]:
         if not jumpDown:
-            velocity[1] -= 10
+            velocity[1] = -3
             jumpDown = True
     else:
         jumpDown = False
