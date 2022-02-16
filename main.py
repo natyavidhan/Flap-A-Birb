@@ -53,6 +53,8 @@ while run:
         pillar.draw(app)
         if pillar.colliding(birb):
             run = False
+    if player.y > 480 or player.y < 0:
+        run = False
             
     text = scoreText.render(str(score), True, (0, 0, 0))
     
