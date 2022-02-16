@@ -10,6 +10,9 @@ jumpDown = False
 BACKGROUND = pygame.image.load("assets/art/background.png")
 run = True
 pillars = []
+score = 0
+pygame.font.init()
+scoreText = pygame.font.SysFont("Arial", 30)
 
 def createPillar():
     x = 650
@@ -42,11 +45,19 @@ while run:
         
     for pillar in pillars:
         if pillar.x < -50:
+            score += 1
             pillars.remove(pillar)
         pillar.x -= 2
         pillar.draw(app)
         if pillar.colliding(birb):
             run = False
+            
+    text = scoreText.render(str(score), True, (0, 0, 0))
+    
+    textRect = text.get_rect()
+    textRect.center = (320, 30)
+    
+    app.blit(text, textRect)
     
     
     pygame.display.update()
