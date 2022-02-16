@@ -6,10 +6,13 @@ birb = Birb(100, 100)
 velocity = [0, 0]
 acceralation = [0.1, 0.1]
 jumpDown = False
-while True:
+BACKGROUND = pygame.image.load("assets/art/background.png")
+run = True
+
+while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            pygame.quit()
+            run = False
     keys = pygame.key.get_pressed()
     if keys[pygame.K_UP]:
         if not jumpDown:
@@ -17,7 +20,7 @@ while True:
             jumpDown = True
     else:
         jumpDown = False
-    app.fill((0, 0, 0))
+    app.blit(BACKGROUND, (0, 0))
     birb.y += velocity[1]
     velocity[1] += acceralation[1]
     birb.draw(app)
