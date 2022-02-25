@@ -14,11 +14,7 @@ score = 0
 pygame.font.init()
 scoreText = pygame.font.SysFont("Arial", 30)
 
-def createPillar():
-    x = 650
-    y = random.randint(-350, -150)
-    pillar = Pillar(x, y)
-    pillars.append(pillar)
+createPillar = lambda: Pillar(650, random.randint(-350, -150))
 
 while run:
     for event in pygame.event.get():
@@ -39,9 +35,9 @@ while run:
     if len(pillars) < 4:
         if len(pillars) > 0:
             if 450 > pillars[-1].x + pillars[-1].pillarUp.get_width():
-                createPillar()
+                pillars.append(createPillar())
         else:
-            createPillar()
+            pillars.append(createPillar())
     for pillar in pillars.copy():
         if pillar.x < -50:
             pillars.remove(pillar)
