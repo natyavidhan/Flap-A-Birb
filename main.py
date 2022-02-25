@@ -8,7 +8,7 @@ pygame.font.init()
 
 # *** global game state ***
 birb = Birb(100, 100)
-jumpDown = False
+keys_prev = {}
 pillars = []
 score = 0
 
@@ -29,19 +29,16 @@ def draw_score(score: int):
 
 
 def run_update():
-    global score, jumpDown
+    global score, keys_prev
 
     # *** handle user input ***
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             return
     keys = pygame.key.get_pressed()
-    if keys[pygame.K_UP]:
-        if not jumpDown:
-            birb.velocity.y = -3
-            jumpDown = True
-    else:
-        jumpDown = False
+    if keys[pygame.K_UP] and not keys_prev[pygame.K_UP]:
+        birb.velocity.y = -3
+    keys_prev = keys
 
     # *** handle+draw birb ***
     app.blit(Assets.background, (0, 0))
