@@ -26,7 +26,7 @@ class Pillar:
         self.x = x
         self.y = y
         self.pillarUp = pygame.image.load("assets/art/pillar.png").convert_alpha()
-        self.pillarDown = pygame.transform.flip(self.pillarUp, False, True)
+        self.pillarDown = pygame.transform.flip(self.pillarUp, flip_x=False, flip_y=True)
         self.scored = False
 
     def draw(self, screen):
@@ -36,13 +36,5 @@ class Pillar:
         )
 
     def colliding(self, birb):
-        if (birb.x + birb._img.get_width() > self.x
-            and birb.x < self.x + self.pillarUp.get_width()
-            or birb.x + birb._img.get_width() > self.x
-            and birb.x < self.x + self.pillarDown.get_width()):
-            if (birb.y + birb._img.get_height() > self.y
-                and birb.y < self.y + self.pillarUp.get_height()
-                or birb.y + birb._img.get_height() > self.y + self.pillarUp.get_height()+130
-                and birb.y < self.y + self.pillarUp.get_height()+130 + self.pillarDown.get_height()):
-                return True
-        return False
+        return (self.x - birb._img.get_width() < birb.x < self.x + self.pillarUp.get_width()) and not \
+            (self.y + self.pillarUp.get_height() <= birb.y <= self.y + self.pillarUp.get_height() + 130 - birb._img.get_height())

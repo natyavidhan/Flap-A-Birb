@@ -45,7 +45,7 @@ def run_update():
     birb.y += birb.velocity.y
     birb.velocity.y += birb.acceleration.y
     birb.draw(app)
-    if birb.y > 480 or birb.y < 0:
+    if not 0 <= birb.y <= 480:
         return
 
     # *** handle+draw pillars ***
