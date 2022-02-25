@@ -1,22 +1,28 @@
 import pygame
 from objects import Birb, Pillar
 import random
+
 app = pygame.display.set_mode((640, 480))
 clock = pygame.time.Clock()
+pygame.font.init()
 
+# *** global game state ***
 birb = Birb(100, 100)
 jumpDown = False
-BACKGROUND = pygame.image.load("assets/art/background.png")
 pillars = []
 score = 0
-pygame.font.init()
-scoreText = pygame.font.SysFont("Arial", 30)
+
+
+class Assets:
+    score_text = pygame.font.SysFont("Arial", 30)
+    background = pygame.image.load("assets/art/background.png")
+
 
 createPillar = lambda: Pillar(650, random.randint(-350, -150))
 
 
 def draw_score(score: int):
-    text = scoreText.render(str(score), True, (0, 0, 0))
+    text = Assets.score_text.render(str(score), True, (0, 0, 0))
     textRect = text.get_rect()
     textRect.center = (320, 30)
     app.blit(text, textRect)
@@ -38,7 +44,7 @@ def run_update():
         jumpDown = False
 
     # *** handle+draw birb ***
-    app.blit(BACKGROUND, (0, 0))
+    app.blit(Assets.background, (0, 0))
     birb.y += birb.velocity.y
     birb.velocity.y += birb.acceleration.y
     birb.draw(app)
