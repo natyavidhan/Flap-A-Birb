@@ -2,6 +2,7 @@ import pygame
 from objects import Birb, Pillar
 import random
 app = pygame.display.set_mode((640, 480))
+clock = pygame.time.Clock()
 
 birb = Birb(100, 100)
 jumpDown = False
@@ -58,4 +59,4 @@ while run:
     
     
     pygame.display.update()
-    pygame.time.delay(10)
+    clock.tick(60)  # fps
