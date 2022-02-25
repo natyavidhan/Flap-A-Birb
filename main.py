@@ -42,8 +42,7 @@ while run:
                 createPillar()
         else:
             createPillar()
-        
-    for pillar in pillars:
+    for pillar in pillars.copy():
         if pillar.x < -50:
             pillars.remove(pillar)
         if pillar.x < 75 and not pillar.scored:
