@@ -7,7 +7,6 @@ clock = pygame.time.Clock()
 birb = Birb(100, 100)
 jumpDown = False
 BACKGROUND = pygame.image.load("assets/art/background.png")
-run = True
 pillars = []
 score = 0
 pygame.font.init()
@@ -15,10 +14,21 @@ scoreText = pygame.font.SysFont("Arial", 30)
 
 createPillar = lambda: Pillar(650, random.randint(-350, -150))
 
-while run:
+
+def draw_score(score: int):
+    text = scoreText.render(str(score), True, (0, 0, 0))
+    textRect = text.get_rect()
+    textRect.center = (320, 30)
+    app.blit(text, textRect)
+
+
+def run_update():
+    global score, jumpDown
+
+    # *** handle user input ***
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            run = False
+            return
     keys = pygame.key.get_pressed()
     if keys[pygame.K_UP]:
         if not jumpDown:
@@ -26,11 +36,16 @@ while run:
             jumpDown = True
     else:
         jumpDown = False
+
+    # *** handle+draw birb ***
     app.blit(BACKGROUND, (0, 0))
     birb.y += birb.velocity.y
     birb.velocity.y += birb.acceleration.y
     birb.draw(app)
-    #rendering pillars
+    if birb.y > 480 or birb.y < 0:
+        return
+
+    # *** handle+draw pillars ***
     if len(pillars) < 4:
         if len(pillars) > 0:
             if 450 > pillars[-1].x + pillars[-1].pillarUp.get_width():
@@ -46,17 +61,12 @@ while run:
         pillar.x -= 2
         pillar.draw(app)
         if pillar.colliding(birb):
-            run = False
-    if birb.y > 480 or birb.y < 0:
-        run = False
-            
-    text = scoreText.render(str(score), True, (0, 0, 0))
-    
-    textRect = text.get_rect()
-    textRect.center = (320, 30)
-    
-    app.blit(text, textRect)
-    
-    
+            return
+
+    draw_score(score)
+    return True
+
+
+while run_update():
     pygame.display.update()
     clock.tick(60)  # fps
