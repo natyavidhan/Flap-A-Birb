@@ -4,8 +4,6 @@ import random
 app = pygame.display.set_mode((640, 480))
 
 birb = Birb(100, 100)
-velocity = [0, 0]
-acceralation = [0.1, 0.1]
 jumpDown = False
 BACKGROUND = pygame.image.load("assets/art/background.png")
 run = True
@@ -23,13 +21,13 @@ while run:
     keys = pygame.key.get_pressed()
     if keys[pygame.K_UP]:
         if not jumpDown:
-            velocity[1] = -3
+            birb.velocity.y = -3
             jumpDown = True
     else:
         jumpDown = False
     app.blit(BACKGROUND, (0, 0))
-    birb.y += velocity[1]
-    velocity[1] += acceralation[1]
+    birb.y += birb.velocity.y
+    birb.velocity.y += birb.acceleration.y
     birb.draw(app)
     #rendering pillars
     if len(pillars) < 4:

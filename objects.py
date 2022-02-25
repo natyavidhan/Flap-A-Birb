@@ -1,11 +1,21 @@
 import pygame
 
+from dataclasses import dataclass
+
+
+@dataclass
+class Vector2D:
+    x: float
+    y: float
+
 
 class Birb:
     def __init__(self, x, y):
         self.x = x
         self.y = y
         self.birb = pygame.image.load("assets/art/birb.png").convert_alpha()
+        self.velocity = Vector2D(0, 0)
+        self.acceleration = Vector2D(0.1, 0.1)
 
     def draw(self, screen):
         screen.blit(self.birb, (self.x, self.y))
