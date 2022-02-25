@@ -49,12 +49,8 @@ def run_update():
         return
 
     # *** handle+draw pillars ***
-    if len(pillars) < 4:
-        if len(pillars) > 0:
-            if 450 > pillars[-1].x + pillars[-1].pillarUp.get_width():
-                pillars.append(createPillar())
-        else:
-            pillars.append(createPillar())
+    if max((pillar.x for pillar in pillars), default=0) < 390:
+        pillars.append(createPillar())
     for pillar in pillars.copy():
         if pillar.x < -50:
             pillars.remove(pillar)
